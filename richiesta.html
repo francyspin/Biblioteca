@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <title>Richiesta Libri</title>
+    <script>
+        window.onload = function() {
+        const bookName = sessionStorage.getItem('selectedBook'); // Recupera il nome del libro
+        const bookCover = sessionStorage.getItem('selectedCover'); // Recupera la copertina del libro
+
+        if (bookName && bookCover) {
+            document.getElementById('nomelibro-text').textContent = bookName; // Mostra il titolo nel <p>
+            document.getElementById('nomelibro-hidden').value = bookName; // Imposta il valore nel campo nascosto
+            document.getElementById('copertina-libro').src = bookCover; // Mostra la copertina
+        } else {
+            alert("Errore: Nessun libro selezionato.");
+            window.location.href = 'Biblioteca.html'; // Torna al catalogo se nessun libro è stato selezionato
+        }
+    }
+
+    </script>
+</head>
+<body class="d-flex justify-content-center align-items-center bg-light vh-100">
+    <div class="container">
+        <div class="row">
+            <!-- Sezione per la copertina -->
+            <div class="col-md-4 text-center">
+                <img id="copertina-libro" src="" alt="Copertina del libro" class="img-fluid rounded shadow">
+            </div>
+
+            <!-- Sezione per il modulo -->
+            <div class="col-md-6">
+                <h1 class="text-center">Richiesta Libri</h1>
+                <form method="POST" action="richiesta.php">
+                    <label for="nome">Nome</label>
+                    <input type="text" id="nome" name="nome" class="form-control mb-3" placeholder="Mario" required>
+                    
+                    <label for="cognome">Cognome</label>
+                    <input type="text" id="cognome" name="cognome" class="form-control mb-3" placeholder="Rossi" required>
+                    
+                    <label for="telefono">Telefono</label>
+                    <input type="tel" id="telefono" name="telefono" class="form-control mb-3" placeholder="+39" required>
+                    
+                    <label for="nomelibro">Nome Libro</label>
+                    <p id="nomelibro-text" class="form-control mb-3 bg-light" readonly></p>
+                    <input type="hidden" id="nomelibro-hidden" name="nomelibro">
+                    
+                    <div class="text-end">
+                        <button type="submit" class="btn btn-outline-dark">Invia</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
